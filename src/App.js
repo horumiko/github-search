@@ -1,10 +1,14 @@
-import React from "react";
+import { React, useState } from "react";
+import { BrowserRouter} from 'react-router-dom';
+import Header from "./components/Header";
 
-function App() {
+const App = () => {
+  const [username, setUsername] = useState();
+
   return (
-    <>
-    <h1>Hello</h1>
-    </>
+    <BrowserRouter>
+        <Header setUsername={setUsername} />
+    </BrowserRouter>
   );
 }
 export default App;
