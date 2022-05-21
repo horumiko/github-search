@@ -2,7 +2,7 @@ import React from 'react'
 import userNotFound from './../../assets/icons/userNotFound.svg'
 import styles from './../../assets/styles/screens/screens.module.css'
 
-const UserNotFound = (props) => {
+const UserNotFound = () => {
     return(
         <div className={styles.container}>
             <img src={userNotFound} alt="User not found icon" />
