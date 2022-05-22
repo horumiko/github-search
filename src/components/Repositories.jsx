@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import Loader from "./screens/Loader";
 import ReposNotFound from './screens/ReposNotFound'
@@ -13,7 +13,7 @@ const Repositories = (props) => {
   const [username] = useState(props.username);
   const [currentPage, setCurrentPage] = useState([1]);
   const [repLength, setRepLength] = useState([]);
-  let url = new URL(`https://api.github.com/users/${username}/repos`);
+  let url = useMemo(() => new URL(`https://api.github.com/users/${username}/repos`)); 
 
   let perPage = 4;
   let pageCount = Math.ceil(repLength / perPage);
