@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.reposContainerHeader {
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 130%;
+  margin-bottom: 30px;
+}
+.reposContainer {
+  max-width: 1200px;
+  width: 100%;
+}
+.reposRepo {
+  width: 100%;
+  min-height: 112px;
+  background: #fff;
+  padding: 24px 32px;
+  margin-bottom: 24px;
+}
+.repoHeading {
+  font-size: 24px;
+  line-height: 29px;
+  color: #0064eb;
+  text-decoration: none;
+}
+.repoDescription {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 19px;
+}
+.paginate {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.paginateLegend {
+  color: #808080;
+  margin-right: 16px;
+}
+.container {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  color: #808080;
+  user-select: none;
+}
+.container li {
+  margin: 0 8px;
+  cursor: pointer;
+}
+.page {
+  cursor: pointer;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.active {
+  color: #fff;
+  user-select: none;
+  background: #0064eb;
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.previous {
+  user-select: none;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.next {
+  user-select: none;
+  margin-left: 12px;
+  cursor: pointer;
+}
+.ReposNotFound {
+  height: calc(100vh - 130px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ReposNotFound .screen-container {
+  height: auto;
+}
+
+@media screen and (max-width: 834px) {
+  .repos-container {
+    width: 100%;
+  }
+  .repos__repo {
+    padding: 15px 20px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .paginate {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+  }
+  .paginate-legend {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+}

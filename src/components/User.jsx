@@ -1,9 +1,11 @@
 import { React, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import UserNotFound from './screens/UserNotFound';
+import Loader from './screens/Loader';
 import styles from './../assets/styles/User.module.css';
 import personIcon from './../assets/icons/person.svg';
 import personsIcon from './../assets/icons/persons.svg';
+import Repositories from './Repositories';
 
 const User = (props) => {
     let { id } = useParams();
@@ -31,7 +33,7 @@ const User = (props) => {
     }, [gitUserURL]);
 
     if (!isDone) {
-        return <div>Loading....</div>;
+        return <Loader />
     } 
     else if (
         userData.message === "Not Found" ||
@@ -42,25 +44,28 @@ const User = (props) => {
       } 
     else {
         return (
-            <div className={styles.userContainer}>
+            <section className={styles.userContainer}>
                 <div className={styles.user}>
-                    <img className={styles.userImg} src={userData.avatar_url} alt="User"></img>
-                    <h2 className={styles.userName}>{userData.name}</h2>
-                    <a className={styles.userLogin} href={userData.html_url} target="_blank" rel='noreferrer'>
+                    <div className={styles.userInfo}>
+                     <img className={styles.userImg} src={userData.avatar_url} alt="User"></img>
+                        <h2 className={styles.userName}>{userData.name}</h2>
+                     <a className={styles.userLogin} href={userData.html_url} target="_blank" rel='noreferrer'>
                         {userData.login}
-                    </a>
+                        </a>
                     <div className={styles.followersContainer}>
-                        <span className={styles.personIcon} >
-                            <img src={personsIcon} alt="Followers"></img>
+                        <span className={styles.userFollowers} >
+                            <img className={styles.personIcon} src={personsIcon} alt="Followers"></img>
                             {userData.followers} followers
                         </span>
-                        <span >
-                            <img src={personIcon} alt="Following"></img>
+                        <span className={styles.userFollowing}>
+                            <img className={styles.personIcon} src={personIcon} alt="Following"></img>
                             {userData.following} following
                         </span>
                     </div>
+                </div>
+                <Repositories username={username} />
               </div>
-            </div>);
+            </section>);
     }
 }
 
