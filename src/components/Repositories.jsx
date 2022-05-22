@@ -13,7 +13,7 @@ const Repositories = (props) => {
   const [username] = useState(props.username);
   const [currentPage, setCurrentPage] = useState([1]);
   const [repLength, setRepLength] = useState([]);
-  let url = useMemo(() => new URL(`https://api.github.com/users/${username}/repos`)); 
+  let url = useMemo(() => new URL(`https://api.github.com/users/${username}/repos`), new URL(`https://api.github.com/users/${username}/repos`)); 
 
   let perPage = 4;
   let pageCount = Math.ceil(repLength / perPage);
