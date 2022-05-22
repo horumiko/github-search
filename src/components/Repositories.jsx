@@ -31,7 +31,6 @@ const Repositories = (props) => {
       .then((res) => res.json())
       .then(
         (result) => {
-
           setDone(true);
           setReposInfo(result);
         }
@@ -46,7 +45,7 @@ const Repositories = (props) => {
             href={repo.html_url}
             target="_blank"
             rel="noreferrer"
-            className="repoHeading"
+            className={styles.repoHeading}
           >
             {repo.name}
           </a>
