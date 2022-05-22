@@ -35,7 +35,7 @@ const Repositories = (props) => {
           setReposInfo(result);
         }
       );
-  }, [currentPage]);
+  }, [username, currentPage]);
 
   const currentPageData = reposInfo
     .map((repo) => {
