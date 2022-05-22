@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './../../assets/styles/screens/screens.module.css';
 
 const Loader = () => {

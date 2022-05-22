@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import ReactPaginate from "react-paginate";
+import PropTypes from 'prop-types';
 import Loader from "./screens/Loader";
 import ReposNotFound from './screens/ReposNotFound'
 import Next from "./../assets/icons/next.svg"
@@ -13,7 +14,6 @@ const Repositories = (props) => {
   const [username] = useState(props.username);
   const [currentPage, setCurrentPage] = useState([1]);
   const [repLength, setRepLength] = useState([]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   let url = new URL(`https://api.github.com/users/${username}/repos`); 
 
   let perPage = 4;
@@ -113,4 +113,13 @@ const CountPages = (props) => {
   );
 };
 
+Repositories.propTypes = {
+  username: PropTypes.string
+};
+
+CountPages.propTypes = {
+  currentPage: PropTypes.number,
+  perPage: PropTypes.number,
+  reposLength: PropTypes.number
+}
 export default Repositories;

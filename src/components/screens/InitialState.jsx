@@ -2,7 +2,7 @@ import React from 'react'
 import searchIcon from './../../assets/icons/search.svg'
 import styles from './../../assets/styles/screens/screens.module.css'
 
-const InitialState = (props) => {
+const InitialState = () => {
     return(
         <div className={styles.container}>
             <img src={searchIcon} alt="Search icon" />

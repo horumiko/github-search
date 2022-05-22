@@ -2,7 +2,7 @@ import React from 'react'
 import ReposNotFoundIcon from './../../assets/icons/reposNotFound.svg'
 import styles from './../../assets/styles/screens/screens.module.css'
 
-const ReposNotFound = (props) => {
+const ReposNotFound = () => {
     return(
         <div className={styles.container}>
             <img src={ReposNotFoundIcon} alt="Repos not found icon" />

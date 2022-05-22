@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate, Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 import styles from './../assets/styles/Header.module.css'
 import GHlogo from './../assets/icons/github.svg'
 import searchIcon from './../assets/icons/search.svg'
@@ -35,5 +36,9 @@ const Header = (props) => {
         </header>
       );
 }
+
+Header.propTypes = {
+  setUsername: PropTypes.func
+};
 
 export default Header;

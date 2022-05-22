@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import UserNotFound from './screens/UserNotFound';
 import Loader from './screens/Loader';
 import styles from './../assets/styles/User.module.css';
@@ -67,6 +68,10 @@ const User = (props) => {
               </div>
             </section>);
     }
+}
+
+User.propTypes = {
+    username: PropTypes.string,
 }
 
 export default User;
