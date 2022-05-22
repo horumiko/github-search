@@ -8,7 +8,7 @@ import searchIcon from './../assets/icons/search.svg'
 const Header = (props) => {
     let history = useNavigate();
 
-    const addChanges = (event) => {
+    const handleChange = (event) => {
       if (event.key === "Enter") {
         history(`/users/${event.target.value}`);
         props.setUsername(event.target.value);
@@ -28,7 +28,7 @@ const Header = (props) => {
                 type="text"
                 placeholder="Enter GitHub username"
                 className={styles.headerInput}
-                onKeyPress={addChanges}
+                onKeyPress={handleChange}
               />
               <div></div>
             </section>

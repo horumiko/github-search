@@ -10,15 +10,14 @@ import Repositories from './Repositories';
 
 const User = (props) => {
     let { id } = useParams();
-    const [username, setUsername] = useState(props.username !== undefined 
-                                                ? props.username : id);
+    const [username, setUsername] = useState(props.username || id);
     const [userData, setUserData] = useState();
     const [isDone, setDone] = useState(false);
     const gitUserURL = `https://api.github.com/users/${username}`;
 
+    
     useEffect(() => {
-        props.username !== undefined ? 
-                setUsername(props.username) : setUsername(id);
+        setUsername(props.username || id);
     }, [props.username, id])
     
     useEffect(()=>{
@@ -33,18 +32,13 @@ const User = (props) => {
             )
     }, [gitUserURL]);
 
-    if (!isDone) {
-        return <Loader />
-    } 
-    else if (
-        userData.message === "Not Found" ||
-        userData.login === "undefined" ||
-        username === "undefined"
-      ) {
-        return <UserNotFound />;
-      } 
-    else {
-        return (
+    if (!isDone) return <Loader />;
+
+    if (userData.message === "Not Found" 
+            || userData.login === "undefined" 
+            || username === "undefined") return <UserNotFound />;
+    
+    return (
             <section className={styles.userContainer}>
                 <div className={styles.user}>
                     <div className={styles.userInfo}>
@@ -66,8 +60,8 @@ const User = (props) => {
                 </div>
                 <Repositories username={username} />
               </div>
-            </section>);
-    }
+            </section>
+            );
 }
 
 User.propTypes = {

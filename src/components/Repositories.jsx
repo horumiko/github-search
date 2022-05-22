@@ -1,33 +1,46 @@
 import React, { useState, useEffect} from "react";
-import ReactPaginate from "react-paginate";
 import PropTypes from 'prop-types';
 import Loader from "./screens/Loader";
 import ReposNotFound from './screens/ReposNotFound'
-import Next from "./../assets/icons/next.svg"
-import Prev from "./../assets/icons//prev.svg";
 import styles from "./../assets/styles/Repositories.module.css";
+import Paginate from "./Paginate/Paginate.jsx";
 
 
-const Repositories = (props) => {
+const Repositories = ({ username }) => {
   const [isDone, setDone] = useState(false);
   const [reposInfo, setReposInfo] = useState([]);
-  const [username] = useState(props.username);
-  const [currentPage, setCurrentPage] = useState([1]);
   const [repLength, setRepLength] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const perPage = 4;
+  const pageCount = Math.ceil(repLength / perPage);
+
   let url = new URL(`https://api.github.com/users/${username}/repos`); 
 
-  let perPage = 4;
-  let pageCount = Math.ceil(repLength / perPage);
 
-  url.searchParams.set('page', currentPage);
+  const changeCurrentPage = ({ selected: selectedPage }) => {
+      setCurrentPage(selectedPage + 1);
+      getRepositories()
+    };
+  
+
+
   url.searchParams.set('per_page', perPage);
+ 
+  
+  useEffect(()=>{
+    fetch(`https://api.github.com/users/${username}`)
+      .then((res) => res.json())
+      .then((result) => {
+        setRepLength(result['public_repos'])
+      })
+  }, [])
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${username}/repos`)
-      .then((res) => res.json())
-      .then((result) =>{
-        setRepLength(result.length);
-      })
+    getRepositories();
+  }, [url, username]);
+
+  const getRepositories = () => {
+    url.searchParams.set('page', currentPage);
     fetch(url)
       .then((res) => res.json())
       .then(
@@ -36,28 +49,7 @@ const Repositories = (props) => {
           setReposInfo(result);
         }
       );
-  }, [url, username]);
-
-  const currentPageData = reposInfo
-    .map((repo) => {
-      return (
-        <div className={styles.reposRepo} key={repo.id}>
-          <a
-            href={repo.html_url}
-            target="_blank"
-            rel="noreferrer"
-            className={styles.repoHeading}
-          >
-            {repo.name}
-          </a>
-          <p className={styles.repoDescription}>{repo.description}</p>
-        </div>
-      );
-    });
-
-  const changeCurrentPage = ({ selected: selectedPage }) => {
-    setCurrentPage(selectedPage + 1);
-  };
+  }
 
 if (!isDone) {
     return (
@@ -77,49 +69,36 @@ if (!isDone) {
         <h2 className={styles.reposContainerHeader}>
           Repositories ({repLength})
         </h2>
-        <div className={styles.repos}> {currentPageData}</div>
+        <div className={styles.repos}> {reposInfo.map((repo) => 
+          <div className={styles.reposRepo} key={repo.id}>
+            <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noreferrer"
+              className={styles.repoHeading}
+            >
+              {repo.name}
+            </a>
+            <p className={styles.repoDescription}>{repo.description}</p>
+          </div>)}    
+        </div>
         <div className={styles.paginate}>
-        <CountPages
-            reposLength={Number(repLength)}
-            currentPage={Number(currentPage - 1)}
-            perPage={Number(perPage)}
-          />
-          <ReactPaginate
-            previousLabel={<img src={Prev} alt="prev" />}
-            nextLabel={<img src={Next} alt="prev" />}
+          <Paginate 
             pageCount={pageCount}
-            onPageChange={changeCurrentPage}
-            containerClassName={styles.container}
-            previousLinkClassName={styles.previous}
-            nextLinkClassName={styles.next}
-            disabledClassName={styles.disabled}
-            activeClassName={styles.active}
-            marginPagesDisplayed={1}
-          />
+            changeCurrentPage={changeCurrentPage}
+            repLength={repLength}
+            currentPage={currentPage}
+            perPage={perPage}
+            />
         </div>
       </div>
     );
   }
 }
-const CountPages = (props) => {
-  let startPage = (1 + props.currentPage) * props.perPage - props.perPage + 1;
-  let endPage = (1 + props.currentPage) * props.perPage;
 
-  if (endPage > props.reposLength) endPage = props.reposLength;
-  return (
-    <p className="paginateLegend">
-      {startPage}-{endPage} of {props.reposLength}
-    </p>
-  );
-};
 
 Repositories.propTypes = {
   username: PropTypes.string
 };
 
-CountPages.propTypes = {
-  currentPage: PropTypes.number,
-  perPage: PropTypes.number,
-  reposLength: PropTypes.number
-}
 export default Repositories;
