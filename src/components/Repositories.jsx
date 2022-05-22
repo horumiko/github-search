@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect} from "react";
 import ReactPaginate from "react-paginate";
 import Loader from "./screens/Loader";
 import ReposNotFound from './screens/ReposNotFound'
@@ -13,6 +13,7 @@ const Repositories = (props) => {
   const [username] = useState(props.username);
   const [currentPage, setCurrentPage] = useState([1]);
   const [repLength, setRepLength] = useState([]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   let url = new URL(`https://api.github.com/users/${username}/repos`); 
 
   let perPage = 4;
@@ -35,7 +36,7 @@ const Repositories = (props) => {
           setReposInfo(result);
         }
       );
-  }, [url, username, currentPage]);
+  }, [url, username]);
 
   const currentPageData = reposInfo
     .map((repo) => {
