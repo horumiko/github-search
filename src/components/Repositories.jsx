@@ -22,10 +22,7 @@ const Repositories = ({ username }) => {
       getRepositories()
     };
   
-
-
   url.searchParams.set('per_page', perPage);
- 
   
   useEffect(()=>{
     fetch(`https://api.github.com/users/${username}`)
@@ -37,7 +34,7 @@ const Repositories = ({ username }) => {
 
   useEffect(() => {
     getRepositories();
-  }, [url.href, username]);
+  }, [url.href, username, currentPage]);
 
   const getRepositories = () => {
     url.searchParams.set('page', currentPage);
