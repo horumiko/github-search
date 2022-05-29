@@ -37,7 +37,7 @@ const Repositories = ({ username }) => {
 
   useEffect(() => {
     getRepositories();
-  }, [url, username]);
+  }, [url.href, username]);
 
   const getRepositories = () => {
     url.searchParams.set('page', currentPage);
@@ -50,7 +50,6 @@ const Repositories = ({ username }) => {
         }
       );
   }
-
 if (!isDone) {
     return (
       <div className={styles.ReposNotFound}>
